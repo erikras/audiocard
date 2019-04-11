@@ -17,6 +17,8 @@ export interface AudioCardProps {
   preload?: 'auto' | 'metadata' | 'none'
   skipForwardSeconds?: number
   skipBackSeconds?: number
+  link?: string
+  linkText?: string
 }
 
 export function AudioCard({
@@ -29,7 +31,9 @@ export function AudioCard({
   progressBarCompleteBackground = '#aaa',
   preload = 'auto',
   skipForwardSeconds = 30,
-  skipBackSeconds = 10
+  skipBackSeconds = 10,
+  link,
+  linkText
 }: AudioCardProps) {
   const {
     playerRef,
@@ -77,6 +81,7 @@ export function AudioCard({
             <SkipForward seconds={skipForwardSeconds} />
           </Control>
         </Controls>
+        {link && linkText && <Link href={link}>{linkText}</Link>}
         <Times>
           <Time value={time} />
           <Time value={duration} />
@@ -106,6 +111,7 @@ const Container = styled.div<ContainerProps>`
   color: ${({ color }) => color};
   a {
     color: ${({ color }) => color};
+    text-decoration: none;
     &:active {
       color: ${({ color }) => color};
     }
@@ -158,4 +164,12 @@ const Title = styled.div`
   margin: 0.5rem 0;
   white-space: nowrap;
   text-overflow: ellipsis;
+`
+
+const Link = styled.a.attrs({ target: '_blank' })`
+  display: block;
+  text-align: center;
+  &:hover {
+    text-decoration: underline;
+  }
 `
