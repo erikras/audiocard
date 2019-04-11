@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": ["src", "./typings.d.ts", "types", "test", "test/setupTests.ts"],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "audiocard": ["src/"]
+    }
+  }
+}

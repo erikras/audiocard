@@ -1,0 +1,16 @@
+node_modules
+dist
+compiled
+*.log
+coverage
+.DS_Store
+next.d.ts
+legacy.d.ts
+.idea
+*.orig
+.DS_Store
+
+node_modules
+
+lib/core/metadata.js
+lib/core/MetadataBlog.js
