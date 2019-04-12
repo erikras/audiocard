@@ -13,7 +13,7 @@ function secondsToHHMMSS(t: number | void) {
   var h = Math.floor(t / 3600)
   var m = Math.floor(t / 60) % 60
   var s = Math.floor(t % 60)
-  return `${h ? h + ':' : ''}${h ? h + ':' : ''}${
-    h ? ('0' + m).slice(-2) : m
-  }:${('0' + s).slice(-2)}`
+  return `${h ? h + ':' : ''}${h ? ('0' + m).slice(-2) : m}:${('0' + s).slice(
+    -2
+  )}`
 }

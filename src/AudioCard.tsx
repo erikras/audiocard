@@ -7,17 +7,57 @@ import { useAudioPlayer } from './hooks/useAudioPlayer'
 import { preventDefault } from './util'
 
 export interface AudioCardProps {
+  /** Optional artwork for the song or podcast episode */
   art?: string
+  /** Optional title of the song or podcast episode */
   title?: string
+  /** URL of the MP3 file to play */
   source: string
+  /**
+   * Primary color for controls
+   *
+   * @default '#666'
+   **/
   color?: string
+  /** Background color for entire card */
   background?: string
+  /**
+   * Background for entire progress bar.
+   *
+   * @default '#DDD'
+   **/
   progressBarBackground?: string
+  /**
+   * Background for the part to the left of the scrubber handle
+   *
+   * @default '#AAA'
+   **/
   progressBarCompleteBackground?: string
+  /**
+   * Whether or not to preload the MP3 file.
+   *
+   * @default 'none'
+   **/
   preload?: 'auto' | 'metadata' | 'none'
+  /**
+   * Optional number of seconds to skip forward when the "skip forward"
+   * control is activated. If not provided, the "skip forward" button
+   * will not be rendered.  */
   skipForwardSeconds?: number
+  /**
+   * Optional number of seconds to skip back when the "skip back"
+   * control is activated. If not provided, the "skip back" button
+   * will not be rendered. */
   skipBackSeconds?: number
+  /**
+   * Optional url for a hyperlink to be rendered. Will only render if
+   * you include both link and linkText.
+   **/
   link?: string
+  /**
+   * Optional text for a hyperlink to be rendered. Will only render if
+   * you include both link and linkText.
+   **/
   linkText?: string
 }
 
@@ -29,9 +69,9 @@ export function AudioCard({
   background,
   progressBarBackground = '#ddd',
   progressBarCompleteBackground = '#aaa',
-  preload = 'auto',
-  skipForwardSeconds = 30,
-  skipBackSeconds = 10,
+  preload = 'none',
+  skipForwardSeconds,
+  skipBackSeconds,
   link,
   linkText
 }: AudioCardProps) {
@@ -62,9 +102,13 @@ export function AudioCard({
       <Content>
         {title && <Title>{title}</Title>}
         <Controls>
-          <Control onClick={preventDefault(() => skipBack(skipBackSeconds))}>
-            <SkipBack seconds={skipBackSeconds} />
-          </Control>
+          {skipBackSeconds === undefined ? (
+            <Control as="div" />
+          ) : (
+            <Control onClick={preventDefault(() => skipBack(skipBackSeconds))}>
+              <SkipBack seconds={skipBackSeconds} />
+            </Control>
+          )}
           {!playing && (
             <Control onClick={play}>
               <Play />
@@ -75,11 +119,15 @@ export function AudioCard({
               <Pause />
             </Control>
           )}
-          <Control
-            onClick={preventDefault(() => skipForward(skipForwardSeconds))}
-          >
-            <SkipForward seconds={skipForwardSeconds} />
-          </Control>
+          {skipForwardSeconds === undefined ? (
+            <Control as="div" />
+          ) : (
+            <Control
+              onClick={preventDefault(() => skipForward(skipForwardSeconds))}
+            >
+              <SkipForward seconds={skipForwardSeconds} />
+            </Control>
+          )}
         </Controls>
         {link && linkText && <Link href={link}>{linkText}</Link>}
         <Times>

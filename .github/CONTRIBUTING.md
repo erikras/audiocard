@@ -5,6 +5,5 @@
 3. Run `yarn link` to link the local repo to NPM
 4. Run `yarn start` to build and watch for code changes
 5. Run `yarn test` to start Jest
-7. Then npm link this repo inside any other project on your local dev with `yarn link audiocard`
-8. Then you can use your local version of ⏯️ Audio Card within your project
-
+6. Then npm link this repo inside any other project on your local dev with `yarn link audiocard`
+7. Then you can use your local version of ⏯️ Audio Card within your project

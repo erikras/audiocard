@@ -1,0 +1,28 @@
+{
+  "projectName": "audiocard",
+  "projectOwner": "erikras",
+  "files": [
+    "README.md"
+  ],
+  "files": ["README.md"],
+  "imageSize": 100,
+  "contributorsPerLine": 7,
+  "badgeTemplate": "[![All Contributors](https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square)](#contributors)",
+  "repoType": "github",
+  "contributors": [
+    {
+      "login": "erikras",
+      "name": "Erik Rasmussen",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/4396759?v=4",
+      "profile": "https://github.com/erikras",
+      "contributions": [
+        "code",
+        "design",
+        "doc",
+        "example",
+        "ideas",
+        "test"
+      ]
+    }
+  ]
+}
