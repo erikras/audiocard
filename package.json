@@ -1,6 +1,6 @@
 {
   "name": "audiocard",
-  "description": "Audio player compatible with Twitter Cards",
+  "description": "Opinionated, responsive, audio player compatible with Twitter Cards",
   "version": "0.0.2",
   "license": "MIT",
   "author": "Erik Rasmussen <rasmussenerik@gmail.com>",

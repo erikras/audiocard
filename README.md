@@ -17,7 +17,7 @@ yarn add audiocard
 />
 ```
 
-See the other options on the [⏯️ AudioCard Storybook](erikras.github.io/audiocard).
+See the other options on the [⏯️ AudioCard Storybook](https://erikras.github.io/audiocard/).
 
 ## Acknowledgements
 
