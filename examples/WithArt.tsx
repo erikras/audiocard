@@ -5,7 +5,7 @@ export default function WithArt() {
   return (
     <AudioCard
       art="https://seekjustice.fm/art300.jpg"
-      source="https://seekjustice.fm/media/001.mp3"
+      source="https://dts.podtrac.com/redirect.mp3/seekjustice.fm/media/001.mp3"
     />
   )
 }
