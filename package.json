@@ -21,7 +21,8 @@
     "dist"
   ],
   "peerDependencies": {
-    "react": ">=15"
+    "react": ">=16.8",
+    "styled-components": ">=4"
   },
   "scripts": {
     "test": "jest --env=jsdom",
@@ -41,6 +42,9 @@
   "resolutions": {
     "@types/react": "^16.7.6",
     "@types/react-dom": "^16.0.9"
+  },
+  "dependencies": {
+    "react-use-dimensions": "^1.1.3"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -80,6 +84,7 @@
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-terser": "^4.0.2",
     "size-limit": "^1.0.1",
+    "styled-components": "^4.2.0",
     "ts-jest": "^24.0.2",
     "tsc-watch": "^2.1.2",
     "tslint": "^5.11.0",
@@ -123,18 +128,15 @@
   "size-limit": [
     {
       "path": "./dist/index.js",
-      "limit": "14 kB"
+      "limit": "6 kB"
     },
     {
       "path": "./dist/audiocard.esm.js",
-      "limit": "14 kB"
+      "limit": "3 kB"
     },
     {
       "path": "./dist/audiocard.umd.production.js",
-      "limit": "14 kB"
+      "limit": "3 kB"
     }
-  ],
-  "dependencies": {
-    "styled-components": "^4.2.0"
-  }
+  ]
 }

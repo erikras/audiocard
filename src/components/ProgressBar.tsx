@@ -8,6 +8,7 @@ interface Props {
   background: string
   completeBackground: string
   seek: (value: number) => void
+  size: number
 }
 
 export const ProgressBar = ({
@@ -16,12 +17,13 @@ export const ProgressBar = ({
   color,
   seek,
   total,
-  value
+  value,
+  size
 }: Props) => {
   const element = React.useRef<HTMLDivElement>(null)
 
   return (
-    <Container ref={element} color={background}>
+    <Container ref={element} color={background} style={{ height: size }}>
       <Progress
         value={value}
         max={total || 0}
@@ -32,6 +34,7 @@ export const ProgressBar = ({
         value={value}
         max={total || 0}
         color={color}
+        size={size}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           seek(Number(event.target.value))
         }
@@ -45,7 +48,6 @@ interface ContainerProps {
 }
 const Container = styled.div<ContainerProps>`
   position: relative;
-  height: 20px;
 `
 
 const fullWidth = css`
@@ -82,11 +84,12 @@ const Progress = styled.progress<ProgressProps>`
 
 interface SliderProps {
   color: string
+  size: number
 }
-const thumbStyles = ({ color }: SliderProps) => css`
+const thumbStyles = ({ color, size }: SliderProps) => css`
   background-color: ${color};
-  height: 20px;
-  width: 10px;
+  height: ${size}px;
+  width: ${size / 2}px;
   appearance: none;
   cursor: grab;
 `

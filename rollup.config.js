@@ -22,7 +22,7 @@ const babelOptions = {
 
 const buildUmd = ({ env }) => ({
   input,
-  external: ['react'],
+  external: ['react', 'styled-components'],
   output: {
     name: 'AudioCard',
     format: 'umd',
@@ -30,7 +30,8 @@ const buildUmd = ({ env }) => ({
     file: `./dist/audiocard.umd.${env}.js`,
     exports: 'named',
     globals: {
-      react: 'React'
+      react: 'React',
+      'styled-components': 'StyledComponents'
     }
   },
 
