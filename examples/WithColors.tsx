@@ -9,7 +9,6 @@ export default function WithSkipButtons() {
       skipBackSeconds={10}
       skipForwardSeconds={30}
       color="orange"
-      preload="auto"
       background="black"
       progressBarBackground="darkorange"
       progressBarCompleteBackground="darkGray"
