@@ -1,0 +1,1 @@
+{"version":3,"file":"main.739938c11cf6163cb20e.bundle.js","sources":["webpack:///./examples/Plain.tsx"],"sourcesContent":["import * as React from 'react'\nimport AudioCard from '../src'\n\nexport default function Plain() {\n  return (\n    <AudioCard source=\"https://dts.podtrac.com/redirect.mp3/seekjustice.fm/media/001.mp3\" />\n  )\n}\n"],"mappings":"AAAA","sourceRoot":""}
