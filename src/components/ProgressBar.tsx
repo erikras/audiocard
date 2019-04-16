@@ -23,7 +23,11 @@ export const ProgressBar = ({
   const element = React.useRef<HTMLDivElement>(null)
 
   return (
-    <Container ref={element} color={background} style={{ height: size }}>
+    <Container
+      ref={element}
+      color={background}
+      style={{ height: size, minHeight: size }}
+    >
       <Progress
         value={value}
         max={total || 0}

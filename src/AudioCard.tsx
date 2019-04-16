@@ -123,8 +123,9 @@ export function AudioCard({
           <Title
             style={{
               fontSize: h(24),
-              width: w(canonicalWidth - canonicalHeight - 20),
-              margin: `${h(12)}px ${w(10)}px ${h(12)}px ${w(10)}px`
+              width: w(canonicalWidth - (art ? canonicalHeight : 0) - 20),
+              margin: `${h(12)}px ${w(10)}px ${h(12)}px ${w(10)}px`,
+              minHeight: h(30)
             }}
           >
             {title}
