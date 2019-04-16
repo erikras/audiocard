@@ -1,7 +1,7 @@
 import * as React from 'react'
 import AudioCard from '../src'
 
-export default function WithSkipMetadataPreload() {
+export default function WithMetadataPreload() {
   return (
     <AudioCard
       art="https://seekjustice.fm/art300.jpg"

@@ -9,18 +9,34 @@ import useDimensions from 'react-use-dimensions'
 export interface AudioCardProps {
   /** Optional artwork for the song or podcast episode */
   art?: string
-  /** Optional title of the song or podcast episode */
-  title?: string
-  /** URL of the MP3 file to play */
-  source: string
+  /** Whether or not to automatically start playback upon mount */
+  autoPlay?: boolean
+  /** Background color for entire card */
+  background?: string
+  /** Optional class name to apply to the resulting container element */
+  className?: string
   /**
    * Primary color for controls
    *
    * @default '#666'
    **/
   color?: string
-  /** Background color for entire card */
-  background?: string
+  /**
+   * Optional url for a hyperlink to be rendered. Will only render if
+   * you include both link and linkText.
+   **/
+  link?: string
+  /**
+   * Optional text for a hyperlink to be rendered. Will only render if
+   * you include both link and linkText.
+   **/
+  linkText?: string
+  /**
+   * Whether or not to preload the MP3 file.
+   *
+   * @default 'none'
+   **/
+  preload?: 'auto' | 'metadata' | 'none'
   /**
    * Background for entire progress bar.
    *
@@ -34,55 +50,41 @@ export interface AudioCardProps {
    **/
   progressBarCompleteBackground?: string
   /**
-   * Whether or not to preload the MP3 file.
-   *
-   * @default 'none'
-   **/
-  preload?: 'auto' | 'metadata' | 'none'
-  /**
-   * Optional number of seconds to skip forward when the "skip forward"
-   * control is activated. If not provided, the "skip forward" button
-   * will not be rendered.  */
-  skipForwardSeconds?: number
-  /**
    * Optional number of seconds to skip back when the "skip back"
    * control is activated. If not provided, the "skip back" button
    * will not be rendered. */
   skipBackSeconds?: number
   /**
-   * Optional url for a hyperlink to be rendered. Will only render if
-   * you include both link and linkText.
-   **/
-  link?: string
-  /**
-   * Optional text for a hyperlink to be rendered. Will only render if
-   * you include both link and linkText.
-   **/
-  linkText?: string
+   * Optional number of seconds to skip forward when the "skip forward"
+   * control is activated. If not provided, the "skip forward" button
+   * will not be rendered.  */
+  skipForwardSeconds?: number
+
+  /** URL of the MP3 file to play */
+  source: string
+  /** Optional title of the song or podcast episode */
+  title?: string
 }
 
 const canonicalWidth = 750
 const canonicalHeight = 225
 const aspectRatio = canonicalWidth / canonicalHeight
 
-/**
- * TODO: Every element needs to be sized with the size of the entire card.
- * With some sort of useSize() hook or something.
- */
-
 export function AudioCard({
   art,
-  title,
-  source,
-  color = '#666',
+  autoPlay,
   background,
+  className,
+  color = '#666',
+  link,
+  linkText,
+  preload = 'none',
   progressBarBackground = '#ddd',
   progressBarCompleteBackground = '#aaa',
-  preload = 'none',
-  skipForwardSeconds,
   skipBackSeconds,
-  link,
-  linkText
+  skipForwardSeconds,
+  source,
+  title
 }: AudioCardProps) {
   const {
     playerRef,
@@ -101,6 +103,7 @@ export function AudioCard({
   const w = (value: number) => (value * width) / canonicalWidth
   return (
     <Container
+      className={className}
       ref={ref}
       background={background}
       color={color}
@@ -111,6 +114,7 @@ export function AudioCard({
         ref={playerRef}
         style={{ display: 'none' }}
         preload={preload}
+        autoPlay={autoPlay}
       />
       {art && (
         <Art
@@ -159,7 +163,11 @@ export function AudioCard({
             </Control>
           )}
         </Controls>
-        {link && linkText && <Link href={link}>{linkText}</Link>}
+        {link && linkText && (
+          <Link href={link} style={{ fontSize: h(20) }}>
+            {linkText}
+          </Link>
+        )}
         <Times style={{ fontSize: h(16) }}>
           <Time value={time} />
           <Time value={duration} />
@@ -187,6 +195,10 @@ const Container = styled.div<ContainerProps>`
   max-width: 100%;
   display: flex;
   flex-flow: row nowrap;
+  * {
+    font-family: 'San Francisco', 'Helvetica Neue', Helvetica, sans-serif;
+    line-height: 1em;
+  }
   ${({ background }) => background && `background-color: ${background};`}
   color: ${({ color }) => color};
   a {

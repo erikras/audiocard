@@ -1,7 +1,7 @@
 import * as React from 'react'
 import AudioCard from '../src'
 
-export default function WithTitle() {
+export default function WithTitleAndArt() {
   return (
     <AudioCard
       title="Ep 1. - What is Criminal Justice?"

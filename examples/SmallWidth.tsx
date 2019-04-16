@@ -1,7 +1,7 @@
 import * as React from 'react'
 import AudioCard from '../src'
 
-export default function WithTitle() {
+export default function SmallWidth() {
   return (
     <div style={{ width: 320, overflow: 'hidden' }}>
       <AudioCard
