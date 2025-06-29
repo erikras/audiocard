@@ -1,48 +1,46 @@
 # ⏯️ AudioCard
 
-⏯️ AudioCard is an opinionated, responsive, audio player for React, designed to be compatible with [Twitter Player Cards](https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/player-card.html). Now with **React Server Component** support!
+⏯️ AudioCard is an opinionated, responsive, audio player for React, designed to be compatible with [Twitter Player Cards](https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/player-card.html).
 
 ![Screenshot](screenshot.jpg)
 
-## 🚀 New in v2.0: Server Component Support
-
-AudioCard now supports React Server Components, making it perfect for Next.js 13+ App Router and other modern React frameworks. The library provides both static server-rendered components and interactive client-side enhancements.
-
-### Quick Start
+## 🚀 Quick Start
 
 ```bash
+npm install audiocard
+# or
 yarn add audiocard
+# or
+pnpm add audiocard
 ```
 
-#### Server Component (Static)
+### Basic Usage
 
 ```jsx
 import AudioCard from 'audiocard'
 
-// In a Server Component
 <AudioCard
   source="https://example.com/audio.mp3"
   title="My Audio Track"
   art="https://example.com/artwork.jpg"
-  duration={180} // Required for server component
+  duration={180}
   width={750}
 />
 ```
 
-#### Interactive Client Component
+### Interactive Usage
 
 ```jsx
-'use client'
-import { AudioCardServer, AudioCardClient } from 'audiocard'
+import AudioCard from 'audiocard'
 
-<AudioCardClient source="https://example.com/audio.mp3" preload={true}>
-  <AudioCardServer
-    source="https://example.com/audio.mp3"
-    title="Interactive Audio"
-    duration={180}
-    width={750}
-  />
-</AudioCardClient>
+<AudioCard
+  source="https://example.com/audio.mp3"
+  title="Interactive Audio"
+  duration={180}
+  width={750}
+  autoplay={true}
+  preload={true}
+/>
 ```
 
 ## Examples

@@ -1,3 +1,4 @@
+'use client'
 import * as React from 'react'
 import SkipBack from './icons/SkipBack'
 import SkipForward from './icons/SkipForward'
@@ -49,6 +50,8 @@ export interface AudioCardProps {
   currentTime?: number
   /** Width of the component - defaults to 750px */
   width?: number
+  autoplay?: boolean
+  preload?: boolean | 'auto' | 'metadata' | 'none'
 }
 
 const canonicalWidth = 750
@@ -66,14 +69,71 @@ export function AudioCard({
   progressBarCompleteBackground = '#aaa',
   title,
   duration,
-  currentTime = 0,
+  currentTime: initialCurrentTime = 0,
   width = canonicalWidth,
+  autoplay = false,
+  preload = 'auto',
 }: AudioCardProps) {
   const height = width / aspectRatio
   const h = (value: number) => (value * height) / canonicalHeight
   const w = (value: number) => (value * width) / canonicalWidth
 
-  const progressPercentage = duration > 0 ? (currentTime / duration) * 100 : 0
+  const audioRef = React.useRef<HTMLAudioElement>(null)
+  const [isPlaying, setIsPlaying] = React.useState(false)
+  const [currentTime, setCurrentTime] = React.useState(initialCurrentTime)
+  const [internalDuration, setInternalDuration] = React.useState(duration)
+
+  React.useEffect(() => {
+    setCurrentTime(initialCurrentTime)
+  }, [initialCurrentTime, setCurrentTime])
+
+  React.useEffect(() => {
+    if (autoplay && audioRef.current) {
+      audioRef.current.play()
+    }
+  }, [autoplay])
+
+  const handlePlayPause = () => {
+    const audio = audioRef.current
+    if (!audio) return
+    if (isPlaying) {
+      audio.pause()
+    } else {
+      audio.play()
+    }
+  }
+
+  const handleSkip = (seconds: number) => {
+    const audio = audioRef.current
+    if (!audio) return
+    audio.currentTime = Math.max(0, Math.min((internalDuration || duration), audio.currentTime + seconds))
+  }
+
+  const handleAudioTimeUpdate = () => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime)
+    }
+  }
+
+  const handleAudioPlay = () => setIsPlaying(true)
+  const handleAudioPause = () => setIsPlaying(false)
+  const handleAudioLoadedMetadata = () => {
+    if (audioRef.current) {
+      setInternalDuration(audioRef.current.duration)
+    }
+  }
+
+  const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const audio = audioRef.current
+    if (!audio) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const percent = x / rect.width
+    const seekTime = percent * (internalDuration || duration)
+    audio.currentTime = seekTime
+  }
+
+  const progressPercentage = (internalDuration || duration) > 0 ? (currentTime / (internalDuration || duration)) * 100 : 0
 
   const containerStyle: React.CSSProperties = {
     width: '100%',
@@ -154,6 +214,7 @@ export function AudioCard({
     position: 'relative',
     height: h(20),
     minHeight: h(20),
+    cursor: 'pointer',
   }
 
   const progressBarStyle: React.CSSProperties = {
@@ -192,14 +253,25 @@ export function AudioCard({
       {art && <img src={art} alt={title || 'Audio artwork'} style={artStyle} />}
       <div style={contentStyle}>
         {title && <div style={titleStyle}>{title}</div>}
+        <audio
+          ref={audioRef}
+          src={source}
+          preload={String(preload)}
+          autoPlay={autoplay}
+          onTimeUpdate={handleAudioTimeUpdate}
+          onPlay={handleAudioPlay}
+          onPause={handleAudioPause}
+          onLoadedMetadata={handleAudioLoadedMetadata}
+          style={{ display: 'none' }}
+        />
         <div style={controlsStyle}>
-          <div style={controlStyle}>
+          <div style={controlStyle} onClick={() => handleSkip(-10)} title="Skip Back 10s">
             <SkipBack seconds={10} />
           </div>
-          <div style={controlStyle}>
-            <Play />
+          <div style={controlStyle} onClick={handlePlayPause} title={isPlaying ? 'Pause' : 'Play'}>
+            {isPlaying ? <Pause /> : <Play />}
           </div>
-          <div style={controlStyle}>
+          <div style={controlStyle} onClick={() => handleSkip(10)} title="Skip Forward 10s">
             <SkipForward seconds={10} />
           </div>
         </div>
@@ -215,9 +287,9 @@ export function AudioCard({
         )}
         <div style={timesStyle}>
           <span>{formatTime(currentTime)}</span>
-          <span>{formatTime(duration)}</span>
+          <span>{formatTime(internalDuration || duration)}</span>
         </div>
-        <div style={progressContainerStyle}>
+        <div style={progressContainerStyle} onClick={handleProgressBarClick}>
           <div style={progressBarStyle}>
             <div style={progressFillStyle} />
           </div>
