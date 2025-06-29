@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { Play, Pause, SkipBack, SkipForward } from './controls'
 import { ProgressBar, Time } from './components'
-import { useAudioPlayer } from './hooks/useAudioPlayer'
+import { useHowl } from './hooks/useHowl'
 import { preventDefault } from './util'
 import useDimensions from 'react-use-dimensions'
 
@@ -10,7 +10,7 @@ export interface AudioCardProps {
   /** Optional artwork for the song or podcast episode */
   art?: string
   /** Whether or not to automatically start playback upon mount */
-  autoPlay?: boolean
+  autoplay?: boolean
   /** Background color for entire card */
   background?: string
   /** Optional class name to apply to the resulting container element */
@@ -34,9 +34,9 @@ export interface AudioCardProps {
   /**
    * Whether or not to preload the MP3 file.
    *
-   * @default 'none'
+   * @default false
    **/
-  preload?: 'auto' | 'metadata' | 'none'
+  preload?: boolean
   /**
    * Background for entire progress bar.
    *
@@ -72,13 +72,13 @@ const aspectRatio = canonicalWidth / canonicalHeight
 
 export function AudioCard({
   art,
-  autoPlay,
+  autoplay,
   background,
   className,
   color = '#666',
   link,
   linkText,
-  preload = 'none',
+  preload,
   progressBarBackground = '#ddd',
   progressBarCompleteBackground = '#aaa',
   skipBackSeconds,
@@ -87,7 +87,6 @@ export function AudioCard({
   title
 }: AudioCardProps) {
   const {
-    playerRef,
     playing,
     time,
     duration,
@@ -96,7 +95,7 @@ export function AudioCard({
     seek,
     skipForward,
     skipBack
-  } = useAudioPlayer()
+  } = useHowl(source, { preload, autoplay })
   const [ref, { width }] = useDimensions()
   const height = width / aspectRatio
   const h = (value: number) => (value * height) / canonicalHeight
@@ -109,13 +108,6 @@ export function AudioCard({
       color={color}
       style={{ height }}
     >
-      <audio
-        src={source}
-        ref={playerRef}
-        style={{ display: 'none' }}
-        preload={preload}
-        autoPlay={autoPlay}
-      />
       {art && (
         <Art
           src={art}

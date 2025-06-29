@@ -8,7 +8,7 @@ export default function WithSkipButtons() {
       source="https://dts.podtrac.com/redirect.mp3/seekjustice.fm/media/001.mp3"
       skipBackSeconds={10}
       skipForwardSeconds={30}
-      autoPlay
+      autoplay
     />
   )
 }
