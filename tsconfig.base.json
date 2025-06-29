@@ -7,10 +7,10 @@
     "experimentalDecorators": false,
     "esModuleInterop": true,
     "importHelpers": true,
-    "jsx": "react",
-    "lib": ["es2015", "dom"],
+    "jsx": "react-jsx",
+    "lib": ["es2020", "dom"],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -24,7 +24,8 @@
     "strict": true,
     "strictNullChecks": true,
     "stripInternal": true,
-    "target": "es5"
+    "target": "es2020",
+    "skipLibCheck": true
   },
   "include": ["src", "types"],
   "exclude": ["node_modules", "dist"]

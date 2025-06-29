@@ -1,3 +1,5 @@
+import '@testing-library/jest-dom'
+
 const consoleError = console.error
 
 let consoleErrorLog: any[] = []

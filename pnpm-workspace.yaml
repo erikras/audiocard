@@ -1,0 +1,10 @@
+onlyBuiltDependencies:
+  - core-js
+  - core-js-pure
+  - ejs
+  - es5-ext
+  - estimo
+  - fsevents
+  - highlight.js
+  - husky
+  - puppeteer-core

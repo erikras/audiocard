@@ -1,28 +1,30 @@
 import path from 'path'
-import commonjs from 'rollup-plugin-commonjs'
-import replace from 'rollup-plugin-replace'
-import resolve from 'rollup-plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import replace from '@rollup/plugin-replace'
+import resolve from '@rollup/plugin-node-resolve'
 import sourceMaps from 'rollup-plugin-sourcemaps'
-import babel from 'rollup-plugin-babel'
-import { terser } from 'rollup-plugin-terser'
+import babel from '@rollup/plugin-babel'
+import { terser } from '@rollup/plugin-terser'
 import { sizeSnapshot } from 'rollup-plugin-size-snapshot'
-import pkg from './package.json'
+import { readFileSync } from 'fs'
+
+const pkg = JSON.parse(readFileSync('./package.json', 'utf8'))
 
 const input = './compiled/index.js'
-const external = id => !id.startsWith('.') && !path.isAbsolute(id)
+const external = (id) => !id.startsWith('.') && !path.isAbsolute(id)
 const replacements = [{ original: 'lodash', replacement: 'lodash-es' }]
 const babelOptions = {
   exclude: /node_modules/,
   plugins: [
     'annotate-pure-calls',
     'dev-expression',
-    ['transform-rename-import', { replacements }]
-  ]
+    ['transform-rename-import', { replacements }],
+  ],
 }
 
 const buildUmd = ({ env }) => ({
   input,
-  external: ['react', 'styled-components'],
+  external: ['react'],
   output: {
     name: 'AudioCard',
     format: 'umd',
@@ -31,15 +33,14 @@ const buildUmd = ({ env }) => ({
     exports: 'named',
     globals: {
       react: 'React',
-      'styled-components': 'StyledComponents'
-    }
+    },
   },
 
   plugins: [
     resolve(),
     babel(babelOptions),
     replace({
-      'process.env.NODE_ENV': JSON.stringify(env)
+      'process.env.NODE_ENV': JSON.stringify(env),
     }),
     commonjs({
       include: /node_modules/,
@@ -47,9 +48,9 @@ const buildUmd = ({ env }) => ({
         'node_modules/react-is/index.js': [
           'isElement',
           'isValidElementType',
-          'ForwardRef'
-        ]
-      }
+          'ForwardRef',
+        ],
+      },
     }),
     sourceMaps(),
     sizeSnapshot(),
@@ -59,13 +60,13 @@ const buildUmd = ({ env }) => ({
         output: { comments: false },
         compress: {
           keep_infinity: true,
-          pure_getters: true
+          pure_getters: true,
         },
         warnings: true,
         ecma: 5,
-        toplevel: false
-      })
-  ]
+        toplevel: false,
+      }),
+  ],
 })
 
 const buildCjs = ({ env }) => ({
@@ -74,12 +75,12 @@ const buildCjs = ({ env }) => ({
   output: {
     file: `./dist/${pkg.name}.cjs.${env}.js`,
     format: 'cjs',
-    sourcemap: true
+    sourcemap: true,
   },
   plugins: [
     resolve(),
     replace({
-      'process.env.NODE_ENV': JSON.stringify(env)
+      'process.env.NODE_ENV': JSON.stringify(env),
     }),
     sourceMaps(),
     sizeSnapshot(),
@@ -89,15 +90,15 @@ const buildCjs = ({ env }) => ({
         output: { comments: false },
         compress: {
           keep_infinity: true,
-          pure_getters: true
+          pure_getters: true,
         },
         warnings: true,
         ecma: 5,
         // Compress and/or mangle variables in top level scope.
         // @see https://github.com/terser-js/terser
-        toplevel: true
-      })
-  ]
+        toplevel: true,
+      }),
+  ],
 })
 
 export default [
@@ -112,9 +113,9 @@ export default [
       {
         file: pkg.module,
         format: 'esm',
-        sourcemap: true
-      }
+        sourcemap: true,
+      },
     ],
-    plugins: [resolve(), babel(babelOptions), sizeSnapshot(), sourceMaps()]
-  }
+    plugins: [resolve(), babel(babelOptions), sizeSnapshot(), sourceMaps()],
+  },
 ]

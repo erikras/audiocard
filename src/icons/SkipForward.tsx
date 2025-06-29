@@ -5,14 +5,14 @@ interface Props {
   className?: string
 }
 
-export const SkipBack = ({ seconds, ...rest }: Props) => (
+const SkipForward: React.FC<Props> = ({ seconds, ...rest }) => (
   <svg viewBox="0 0 71 71" {...rest}>
     <defs>
       <clipPath id="prefix__a">
         <path d="M.5 71.5V.5h71v71z" />
       </clipPath>
     </defs>
-    <g clipPath="url(#prefix__a)" transform="matrix(-1 0 0 1 71 0)">
+    <g clipPath="url(#prefix__a)">
       <path
         d="M61.5 35.5c0 7-2 14-8 20-10 11-28 11-39 0-10-11-10-28 0-39 6-6 14-8 21-8h1"
         fill="none"
@@ -32,7 +32,7 @@ export const SkipBack = ({ seconds, ...rest }: Props) => (
       />
     </g>
     <text
-      x={23}
+      x={22}
       y={44}
       fontSize={23}
       fill="currentColor"
@@ -42,3 +42,5 @@ export const SkipBack = ({ seconds, ...rest }: Props) => (
     </text>
   </svg>
 )
+
+export default SkipForward 
