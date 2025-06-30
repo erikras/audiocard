@@ -4,7 +4,7 @@ import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
 import sourceMaps from 'rollup-plugin-sourcemaps'
 import babel from '@rollup/plugin-babel'
-import { terser } from '@rollup/plugin-terser'
+import terser from '@rollup/plugin-terser'
 import { sizeSnapshot } from 'rollup-plugin-size-snapshot'
 import { readFileSync } from 'fs'
 
@@ -56,7 +56,6 @@ const buildUmd = ({ env }) => ({
     sizeSnapshot(),
     env === 'production' &&
       terser({
-        sourcemap: true,
         output: { comments: false },
         compress: {
           keep_infinity: true,
@@ -86,7 +85,6 @@ const buildCjs = ({ env }) => ({
     sizeSnapshot(),
     env === 'production' &&
       terser({
-        sourcemap: true,
         output: { comments: false },
         compress: {
           keep_infinity: true,
@@ -94,8 +92,6 @@ const buildCjs = ({ env }) => ({
         },
         warnings: true,
         ecma: 5,
-        // Compress and/or mangle variables in top level scope.
-        // @see https://github.com/terser-js/terser
         toplevel: true,
       }),
   ],

@@ -32,5 +32,39 @@
         "code": 5659
       }
     }
+  },
+  "audiocard.umd.production.js": {
+    "bundled": 13399,
+    "minified": 5932,
+    "gzipped": 2321
+  },
+  "audiocard.umd.development.js": {
+    "bundled": 25624,
+    "minified": 10663,
+    "gzipped": 4160
+  },
+  "audiocard.cjs.production.js": {
+    "bundled": 9979,
+    "minified": 5932,
+    "gzipped": 2096
+  },
+  "audiocard.cjs.development.js": {
+    "bundled": 9979,
+    "minified": 5932,
+    "gzipped": 2096
+  },
+  "audiocard.esm.js": {
+    "bundled": 9222,
+    "minified": 5042,
+    "gzipped": 1903,
+    "treeshaked": {
+      "rollup": {
+        "code": 40,
+        "import_statements": 40
+      },
+      "webpack": {
+        "code": 1057
+      }
+    }
   }
 }

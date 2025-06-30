@@ -57,6 +57,15 @@ importers:
       '@vitest/ui':
         specifier: 3.2.4
         version: 3.2.4(vitest@3.2.4)
+      babel-plugin-annotate-pure-calls:
+        specifier: ^0.5.0
+        version: 0.5.0(@babel/core@7.27.7)
+      babel-plugin-dev-expression:
+        specifier: ^0.2.3
+        version: 0.2.3(@babel/core@7.27.7)
+      babel-plugin-transform-rename-import:
+        specifier: ^2.3.0
+        version: 2.3.0
       biome:
         specifier: ^0.3.3
         version: 0.3.3
@@ -1109,6 +1118,20 @@ packages:
 
   aws4@1.13.2:
     resolution: {integrity: sha512-lHe62zvbTB5eEABUVi/AwVh0ZKY9rMMDhmm+eeyuuUQbQ3+J+fONVQOZyj+DdrvD4BY33uYniyRJ4UJIaSKAfw==}
+
+  babel-plugin-annotate-pure-calls@0.5.0:
+    resolution: {integrity: sha512-bWlaZl2qsJKHv9BJgF1g6bQ04wK/7Topq9g59I795W9jpx9lNs9N5LK5NjlEBCDhHncrO0vcoAMuHJR3oWnTeQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@babel/core': ^7.0.0
+
+  babel-plugin-dev-expression@0.2.3:
+    resolution: {integrity: sha512-rP5LK9QQTzCW61nVVzw88En1oK8t8gTsIeC6E61oelxNsU842yMjF0G1MxhvUpCkxCEIj7sE8/e5ieTheT//uw==}
+    peerDependencies:
+      '@babel/core': ^7.0.0
+
+  babel-plugin-transform-rename-import@2.3.0:
+    resolution: {integrity: sha512-dPgJoT57XC0PqSnLgl2FwNvxFrWlspatX2dkk7yjKQj5HHGw071vAcOf+hqW8ClqcBDMvEbm6mevn5yHAD8mlQ==}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -4642,6 +4665,16 @@ snapshots:
   aws-sign2@0.7.0: {}
 
   aws4@1.13.2: {}
+
+  babel-plugin-annotate-pure-calls@0.5.0(@babel/core@7.27.7):
+    dependencies:
+      '@babel/core': 7.27.7
+
+  babel-plugin-dev-expression@0.2.3(@babel/core@7.27.7):
+    dependencies:
+      '@babel/core': 7.27.7
+
+  babel-plugin-transform-rename-import@2.3.0: {}
 
   balanced-match@1.0.2: {}
 
