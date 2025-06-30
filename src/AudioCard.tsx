@@ -245,6 +245,7 @@ function AudioCard({
   }
 
   const formatTime = (seconds: number): string => {
+    if (!Number.isFinite(seconds) || seconds < 0) return '0:00';
     const mins = Math.floor(seconds / 60)
     const secs = Math.floor(seconds % 60)
     const secsStr = secs < 10 ? '0' + secs : String(secs)
@@ -289,8 +290,16 @@ function AudioCard({
           </a>
         )}
         <div style={timesStyle}>
-          <span>{formatTime(currentTime)}</span>
-          <span>{formatTime(internalDuration || duration)}</span>
+          <span>
+            {Number.isFinite(currentTime) && currentTime >= 0 && Number.isFinite(internalDuration || duration) && (internalDuration || duration) > 0
+              ? formatTime(currentTime)
+              : ''}
+          </span>
+          <span>
+            {Number.isFinite(internalDuration || duration) && (internalDuration || duration) > 0
+              ? formatTime(internalDuration || duration)
+              : ''}
+          </span>
         </div>
         <div style={progressContainerStyle} onClick={handleProgressBarClick}>
           <div style={progressBarStyle}>
