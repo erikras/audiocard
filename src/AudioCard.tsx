@@ -58,7 +58,7 @@ const canonicalWidth = 750
 const canonicalHeight = 225
 const aspectRatio = canonicalWidth / canonicalHeight
 
-export function AudioCard({
+function AudioCard({
   art,
   background,
   className,
@@ -67,6 +67,7 @@ export function AudioCard({
   linkText,
   progressBarBackground = '#ddd',
   progressBarCompleteBackground = '#aaa',
+  source,
   title,
   duration,
   currentTime: initialCurrentTime = 0,
@@ -133,7 +134,9 @@ export function AudioCard({
     audio.currentTime = seekTime
   }
 
-  const progressPercentage = (internalDuration || duration) > 0 ? (currentTime / (internalDuration || duration)) * 100 : 0
+  const progressPercentage = (internalDuration || duration) > 0
+    ? Math.min(100, Math.max(0, (currentTime / (internalDuration || duration)) * 100))
+    : 0
 
   const containerStyle: React.CSSProperties = {
     width: '100%',

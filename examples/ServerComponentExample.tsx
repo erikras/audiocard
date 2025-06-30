@@ -1,5 +1,5 @@
 import React from 'react'
-import { AudioCard } from '../src'
+import AudioCard from '../src'
 
 // Server Component Example
 export function ServerComponentExample() {

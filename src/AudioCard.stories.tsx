@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { AudioCard } from './AudioCard'
+import AudioCard from './AudioCard'
 
 const meta: Meta<typeof AudioCard> = {
   title: 'AudioCard/AudioCard',

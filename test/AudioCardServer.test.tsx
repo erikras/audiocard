@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { AudioCard } from '../src/AudioCard'
+import AudioCard from '../src/AudioCard'
 
 describe('AudioCard', () => {
   it('renders without crashing', () => {
