@@ -293,12 +293,12 @@ function AudioCard({
           <span>
             {Number.isFinite(currentTime) && currentTime >= 0 && Number.isFinite(internalDuration || duration) && (internalDuration || duration) > 0
               ? formatTime(currentTime)
-              : ''}
+              : <span style={{ visibility: 'hidden' }}>0:00</span>}
           </span>
           <span>
             {Number.isFinite(internalDuration || duration) && (internalDuration || duration) > 0
               ? formatTime(internalDuration || duration)
-              : ''}
+              : <span style={{ visibility: 'hidden' }}>0:00</span>}
           </span>
         </div>
         <div style={progressContainerStyle} onClick={handleProgressBarClick}>
