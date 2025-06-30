@@ -1,7 +1,7 @@
 {
   "name": "audiocard",
   "description": "Opinionated, responsive, audio player compatible with Twitter Cards - Fully RSC compliant",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "type": "module",
   "license": "MIT",
   "author": "Erik Rasmussen <rasmussenerik@gmail.com>",
