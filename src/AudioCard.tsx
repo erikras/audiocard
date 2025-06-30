@@ -147,6 +147,7 @@ function AudioCard({
     lineHeight: '1em',
     height: height,
     color: color,
+    userSelect: 'none',
   }
 
   if (background) {
