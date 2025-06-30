@@ -1,36 +1,42 @@
 import React from 'react'
-import AudioCard from '../src'
+import AudioCard from '../src/AudioCard'
 
 // Server Component Example
 export function ServerComponentExample() {
   return (
-    <div>
-      <h2>AudioCard Example</h2>
-
-      {/* Static AudioCard - no interactivity */}
+    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
+      <h1>AudioCard RSC Example</h1>
+      <p>This example demonstrates that AudioCard works properly in React Server Components.</p>
+      
       <AudioCard
-        source="https://example.com/audio.mp3"
-        title="Sample Audio Track"
-        art="https://picsum.photos/225/225?random=3"
-        duration={180} // 3 minutes
-        currentTime={0}
-        color="#333"
-        background="#f5f5f5"
-        width={600}
+        source="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"
+        title="Sample Audio in Server Component"
+        duration={120}
+        currentTime={30}
+        width={750}
       />
-
-      <h2>AudioCard (Different Style)</h2>
-
-      {/* Another AudioCard with different styling */}
+      
+      <h2>With Artwork</h2>
       <AudioCard
-        source="https://example.com/audio.mp3"
-        title="Interactive Audio Track"
-        art="https://picsum.photos/225/225?random=4"
+        source="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"
+        title="Audio with Artwork"
+        art="https://picsum.photos/225/225?random=1"
         duration={180}
         currentTime={60}
-        color="#666"
-        background="#fff"
-        width={600}
+        width={750}
+      />
+      
+      <h2>Custom Colors</h2>
+      <AudioCard
+        source="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"
+        title="Custom Colored Audio"
+        color="#ff6b6b"
+        background="#2c3e50"
+        progressBarBackground="#34495e"
+        progressBarCompleteBackground="#e74c3c"
+        duration={240}
+        currentTime={120}
+        width={750}
       />
     </div>
   )

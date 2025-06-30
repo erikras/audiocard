@@ -43,6 +43,26 @@ import AudioCard from 'audiocard'
 />
 ```
 
+## 🎯 React Server Components (RSC) Support
+
+AudioCard is fully compatible with React Server Components and Next.js App Router. The component includes the `'use client'` directive, so it can be imported and used directly in server components without any additional configuration.
+
+```jsx
+// This works in a Next.js server component
+import AudioCard from 'audiocard'
+
+export default function MyServerComponent() {
+  return (
+    <AudioCard
+      source="https://example.com/audio.mp3"
+      title="Server Component Audio"
+      duration={180}
+      width={750}
+    />
+  )
+}
+```
+
 ## Examples
 
 See the other options on the [⏯️ AudioCard Storybook](https://erikras.github.io/audiocard/).

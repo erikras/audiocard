@@ -1,6 +1,6 @@
 {
   "name": "audiocard",
-  "description": "Opinionated, responsive, audio player compatible with Twitter Cards - Server Component version",
+  "description": "Opinionated, responsive, audio player compatible with Twitter Cards - Fully RSC compliant",
   "version": "3.0.1",
   "type": "module",
   "license": "MIT",
@@ -15,7 +15,9 @@
     "card",
     "twitter card",
     "server component",
-    "next.js"
+    "next.js",
+    "rsc",
+    "react server components"
   ],
   "main": "./dist/index.js",
   "module": "./dist/audiocard.esm.js",

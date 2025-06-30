@@ -22,6 +22,18 @@ const babelOptions = {
   ],
 }
 
+// Plugin to preserve 'use client' directive
+const preserveUseClient = () => ({
+  name: 'preserve-use-client',
+  renderChunk(code, chunk, options) {
+    // Only add 'use client' to the main ESM build
+    if (options.format === 'es' && chunk.fileName === 'audiocard.esm.js') {
+      return `'use client';\n${code}`
+    }
+    return code
+  }
+})
+
 const buildUmd = ({ env }) => ({
   input,
   external: ['react'],
@@ -112,6 +124,6 @@ export default [
         sourcemap: true,
       },
     ],
-    plugins: [resolve(), babel(babelOptions), sizeSnapshot(), sourceMaps()],
+    plugins: [resolve(), babel(babelOptions), preserveUseClient(), sizeSnapshot(), sourceMaps()],
   },
 ]

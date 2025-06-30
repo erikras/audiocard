@@ -54,7 +54,7 @@
     "gzipped": 2096
   },
   "audiocard.esm.js": {
-    "bundled": 9222,
+    "bundled": 9236,
     "minified": 5042,
     "gzipped": 1903,
     "treeshaked": {
