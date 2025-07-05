@@ -40,6 +40,18 @@ export interface AudioCardProps {
    * @default '#AAA'
    **/
   progressBarCompleteBackground?: string
+  /**
+   * Optional number of seconds to skip back when the "skip back"
+   * control is activated. If not provided, the "skip back" button
+   * will not be rendered.
+   **/
+  skipBackSeconds?: number
+  /**
+   * Optional number of seconds to skip forward when the "skip forward"
+   * control is activated. If not provided, the "skip forward" button
+   * will not be rendered.
+   **/
+  skipForwardSeconds?: number
   /** URL of the MP3 file to play */
   source: string
   /** Optional title of the song or podcast episode */
@@ -67,6 +79,8 @@ function AudioCard({
   linkText,
   progressBarBackground = '#ddd',
   progressBarCompleteBackground = '#aaa',
+  skipBackSeconds,
+  skipForwardSeconds,
   source,
   title,
   duration,
@@ -270,15 +284,23 @@ function AudioCard({
           style={{ display: 'none' }}
         />
         <div style={controlsStyle}>
-          <div style={controlStyle} onClick={() => handleSkip(-10)} title="Skip Back 10s">
-            <SkipBack seconds={10} />
-          </div>
+          {skipBackSeconds !== undefined ? (
+            <div style={controlStyle} onClick={() => handleSkip(-skipBackSeconds)} title={`Skip Back ${skipBackSeconds}s`}>
+              <SkipBack seconds={skipBackSeconds} />
+            </div>
+          ) : (
+            <div style={controlStyle} />
+          )}
           <div style={controlStyle} onClick={handlePlayPause} title={isPlaying ? 'Pause' : 'Play'}>
             {isPlaying ? <Pause /> : <Play />}
           </div>
-          <div style={controlStyle} onClick={() => handleSkip(10)} title="Skip Forward 10s">
-            <SkipForward seconds={10} />
-          </div>
+          {skipForwardSeconds !== undefined ? (
+            <div style={controlStyle} onClick={() => handleSkip(skipForwardSeconds)} title={`Skip Forward ${skipForwardSeconds}s`}>
+              <SkipForward seconds={skipForwardSeconds} />
+            </div>
+          ) : (
+            <div style={controlStyle} />
+          )}
         </div>
         {link && linkText && (
           <a
