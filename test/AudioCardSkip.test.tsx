@@ -77,4 +77,20 @@ describe('AudioCard Skip Functionality', () => {
     expect(skipBackButton).toBeInTheDocument()
     expect(skipForwardButton).toBeInTheDocument()
   })
+
+  it('works without providing duration prop', () => {
+    render(
+      <AudioCard
+        source="https://example.com/audio.mp3"
+        skipBackSeconds={10}
+        skipForwardSeconds={30}
+      />
+    )
+    
+    // Check that skip buttons are rendered even without duration
+    const skipBackButton = screen.getByTitle('Skip Back 10s')
+    const skipForwardButton = screen.getByTitle('Skip Forward 30s')
+    expect(skipBackButton).toBeInTheDocument()
+    expect(skipForwardButton).toBeInTheDocument()
+  })
 }) 

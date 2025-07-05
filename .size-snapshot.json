@@ -34,29 +34,29 @@
     }
   },
   "audiocard.umd.production.js": {
-    "bundled": 14391,
-    "minified": 6308,
-    "gzipped": 2450
+    "bundled": 14445,
+    "minified": 6340,
+    "gzipped": 2455
   },
   "audiocard.umd.development.js": {
-    "bundled": 26616,
-    "minified": 11039,
-    "gzipped": 4284
+    "bundled": 26670,
+    "minified": 11071,
+    "gzipped": 4290
   },
   "audiocard.cjs.production.js": {
-    "bundled": 10919,
-    "minified": 6344,
-    "gzipped": 2227
+    "bundled": 10973,
+    "minified": 6376,
+    "gzipped": 2233
   },
   "audiocard.cjs.development.js": {
-    "bundled": 10919,
-    "minified": 6344,
-    "gzipped": 2227
+    "bundled": 10973,
+    "minified": 6376,
+    "gzipped": 2233
   },
   "audiocard.esm.js": {
-    "bundled": 10120,
-    "minified": 5388,
-    "gzipped": 2037,
+    "bundled": 10174,
+    "minified": 5420,
+    "gzipped": 2043,
     "treeshaked": {
       "rollup": {
         "code": 40,

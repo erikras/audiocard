@@ -56,8 +56,8 @@ export interface AudioCardProps {
   source: string
   /** Optional title of the song or podcast episode */
   title?: string
-  /** Duration in seconds - required for server component */
-  duration: number
+  /** Duration in seconds - defaults to 0 for server component */
+  duration?:number
   /** Current time in seconds - defaults to 0 for server component */
   currentTime?: number
   /** Width of the component - defaults to 750px */
@@ -83,7 +83,7 @@ function AudioCard({
   skipForwardSeconds,
   source,
   title,
-  duration,
+  duration = 0,
   currentTime: initialCurrentTime = 0,
   width = canonicalWidth,
   autoplay = false,
@@ -96,7 +96,7 @@ function AudioCard({
   const audioRef = React.useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = React.useState(false)
   const [currentTime, setCurrentTime] = React.useState(initialCurrentTime)
-  const [internalDuration, setInternalDuration] = React.useState(duration)
+  const [internalDuration, setInternalDuration] = React.useState(duration || 0)
 
   React.useEffect(() => {
     setCurrentTime(initialCurrentTime)
@@ -121,7 +121,7 @@ function AudioCard({
   const handleSkip = (seconds: number) => {
     const audio = audioRef.current
     if (!audio) return
-    audio.currentTime = Math.max(0, Math.min((internalDuration || duration), audio.currentTime + seconds))
+    audio.currentTime = Math.max(0, Math.min((internalDuration || duration || 0), audio.currentTime + seconds))
   }
 
   const handleAudioTimeUpdate = () => {
@@ -144,12 +144,12 @@ function AudioCard({
     const rect = e.currentTarget.getBoundingClientRect()
     const x = e.clientX - rect.left
     const percent = x / rect.width
-    const seekTime = percent * (internalDuration || duration)
+    const seekTime = percent * (internalDuration || duration || 0)
     audio.currentTime = seekTime
   }
 
-  const progressPercentage = (internalDuration || duration) > 0
-    ? Math.min(100, Math.max(0, (currentTime / (internalDuration || duration)) * 100))
+  const progressPercentage = (internalDuration || duration || 0) > 0
+    ? Math.min(100, Math.max(0, (currentTime / (internalDuration || duration || 0)) * 100))
     : 0
 
   const containerStyle: React.CSSProperties = {
@@ -314,13 +314,13 @@ function AudioCard({
         )}
         <div style={timesStyle}>
           <span>
-            {Number.isFinite(currentTime) && currentTime >= 0 && Number.isFinite(internalDuration || duration) && (internalDuration || duration) > 0
+            {Number.isFinite(currentTime) && currentTime >= 0 && Number.isFinite(internalDuration || duration || 0) && (internalDuration || duration || 0) > 0
               ? formatTime(currentTime)
               : <span style={{ visibility: 'hidden' }}>0:00</span>}
           </span>
           <span>
-            {Number.isFinite(internalDuration || duration) && (internalDuration || duration) > 0
-              ? formatTime(internalDuration || duration)
+            {Number.isFinite(internalDuration || duration || 0) && (internalDuration || duration || 0) > 0
+              ? formatTime(internalDuration || duration || 0)
               : <span style={{ visibility: 'hidden' }}>0:00</span>}
           </span>
         </div>
