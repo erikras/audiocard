@@ -64,6 +64,10 @@ export interface AudioCardProps {
   width?: number
   autoplay?: boolean
   preload?: boolean | 'auto' | 'metadata' | 'none'
+  /** Callback called every 15 seconds with progress from 0 to 1 */
+  onProgress?: (progress: number) => void
+  /** Callback called when audio playback completes */
+  onComplete?: () => void
 }
 
 const canonicalWidth = 750
@@ -88,6 +92,8 @@ function AudioCard({
   width = canonicalWidth,
   autoplay = false,
   preload = 'auto',
+  onProgress,
+  onComplete,
 }: AudioCardProps) {
   const height = width / aspectRatio
   const h = (value: number) => (value * height) / canonicalHeight
@@ -138,6 +144,12 @@ function AudioCard({
     }
   }
 
+  const handleAudioEnded = () => {
+    if (onComplete) {
+      onComplete()
+    }
+  }
+
   const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const audio = audioRef.current
     if (!audio) return
@@ -151,6 +163,20 @@ function AudioCard({
   const progressPercentage = (internalDuration || duration || 0) > 0
     ? Math.min(100, Math.max(0, (currentTime / (internalDuration || duration || 0)) * 100))
     : 0
+
+  // Call onProgress callback every 15 seconds if provided and playing
+  React.useEffect(() => {
+    if (!onProgress || !isPlaying) return
+    
+    const interval = setInterval(() => {
+      const progress = (internalDuration || duration || 0) > 0
+        ? Math.min(1, Math.max(0, currentTime / (internalDuration || duration || 0)))
+        : 0
+      onProgress(progress)
+    }, 15000) // 15 seconds
+    
+    return () => clearInterval(interval)
+  }, [onProgress, isPlaying, currentTime, internalDuration, duration])
 
   const containerStyle: React.CSSProperties = {
     width: '100%',
@@ -281,6 +307,7 @@ function AudioCard({
           onPlay={handleAudioPlay}
           onPause={handleAudioPause}
           onLoadedMetadata={handleAudioLoadedMetadata}
+          onEnded={handleAudioEnded}
           style={{ display: 'none' }}
         />
         <div style={controlsStyle}>
